@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computational Science Research Portal</title>
+    <title>About - Advanced Computational Science Toolkit</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -15,15 +15,15 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            line-height: 1.6;
+            color: #1e293b;
         }
-        /* Hero Section Gradient */
         .hero-bg {
             background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
             position: relative;
             overflow: hidden;
         }
-        /* Floating Elements Animation */
         .floating-element {
             position: absolute;
             opacity: 0.9;
@@ -31,16 +31,14 @@
         }
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
-        /* Smooth Scroll Behavior */
         html {
             scroll-behavior: smooth;
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #e5e7eb;
@@ -52,15 +50,13 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #1E3A8A;
         }
-        /* Hover Effects for Cards */
-        .research-card {
+        .section-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .research-card:hover {
+        .section-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
-        /* Glowing Effect for Buttons */
         .glow-btn {
             position: relative;
             overflow: hidden;
@@ -79,29 +75,14 @@
         .glow-btn:hover::before {
             left: 100%;
         }
-        /* Parallax Effect for Section Backgrounds */
-        .parallax-bg {
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
-        }
-        /* Custom Tab Styling */
-        .tab-btn {
-            transition: all 0.3s ease;
-        }
-        .tab-btn.active {
-            background-color: #1E3A8A !important;
-            color: white !important;
-        }
-        /* Back to Top Button */
         #back-to-top {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
+            bottom: 20px;
+            right: 20px;
             background-color: #3B82F6;
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -109,31 +90,73 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: opacity 0.3s ease;
+            z-index: 1000;
         }
         #back-to-top.visible {
             opacity: 1;
+        }
+        /* Mobile-specific adjustments */
+        @media (max-width: 640px) {
+            .hero-bg {
+                padding-top: 6rem; /* Reduced padding for mobile */
+                padding-bottom: 4rem;
+            }
+            .floating-element {
+                display: none; /* Hide floating elements on small screens */
+            }
+            .text-4xl {
+                font-size: 2rem; /* Smaller headings */
+            }
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+            .text-6xl {
+                font-size: 3rem;
+            }
+            .text-lg {
+                font-size: 1rem;
+            }
+            .text-xl {
+                font-size: 1.125rem;
+            }
+            .section-card {
+                padding: 1.5rem; /* Reduced padding */
+            }
+            .py-20 {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            #back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 36px;
+                height: 36px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Back to Top Button -->
-    <a href="#home" id="back-to-top" class="hidden">
-        <i class="fas fa-chevron-up text-xl"></i>
+    <a href="#top" id="back-to-top" class="hidden">
+        <i class="fas fa-chevron-up text-lg"></i>
     </a>
 
-    <!-- Top Navbar -->
+    <!-- Header -->
     <header class="bg-white shadow-lg fixed w-full top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="ICCLOGO.png" alt="Logo" class="h-12 mr-3">
-                <span class="text-2xl font-bold text-gray-800">Computational Science Research Portal</span>
+                <span class="text-xl sm:text-2xl font-bold text-gray-800 whitespace-nowrap">Advanced Computational Toolkit</span>
             </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium transition">Home</a>
-                <a href="#research-areas" class="text-gray-600 hover:text-blue-600 font-medium transition">Research Areas</a>
-                <a href="#methodologies" class="text-gray-600 hover:text-blue-600 font-medium transition">Methodologies</a>
-                <a href="#publications" class="text-gray-600 hover:text-blue-600 font-medium transition">Publications</a>
-                <a href="#team" class="text-gray-600 hover:text-blue-600 font-medium transition">Our Group</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#top" class="text-gray-600 hover:text-blue-600 font-medium transition text-sm md:text-base">Home</a>
+                <a href="#computational-science" class="text-gray-600 hover:text-blue-600 font-medium transition text-sm md:text-base">What is CS?</a>
+                <a href="#toolkit" class="text-gray-600 hover:text-blue-600 font-medium transition text-sm md:text-base">Applications</a>
+                <a href="#team" class="text-gray-600 hover:text-blue-600 font-medium transition text-sm md:text-base">Team</a>
+                <a href="toolkit.html" class="text-gray-600 hover:text-blue-600 font-medium transition text-sm md:text-base">Toolkit</a>
             </div>
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-gray-600 focus:outline-none">
@@ -144,276 +167,186 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
             <div class="flex flex-col items-center py-4 space-y-4">
-                <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
-                <a href="#research-areas" class="text-gray-600 hover:text-blue-600 font-medium">Research Areas</a>
-                <a href="#methodologies" class="text-gray-600 hover:text-blue-600 font-medium">Methodologies</a>
-                <a href="#publications" class="text-gray-600 hover:text-blue-600 font-medium">Publications</a>
-                <a href="#team" class="text-gray-600 hover:text-blue-600 font-medium">Our Group</a>
+                <a href="#top" class="text-gray-600 hover:text-blue-600 font-medium text-base">Home</a>
+                <a href="#computational-science" class="text-gray-600 hover:text-blue-600 font-medium text-base">What is Computational Science?</a>
+                <a href="#toolkit" class="text-gray-600 hover:text-blue-600 font-medium text-base">Toolkit Applications</a>
+                <a href="#team" class="text-gray-600 hover:text-blue-600 font-medium text-base">Our Team</a>
+                <a href="toolkit.html" class="text-gray-600 hover:text-blue-600 font-medium text-base">Go to Toolkit</a>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main-content pt-20">
+    <main class="pt-20">
         <!-- Hero Section -->
-        <section id="home" class="hero-bg text-white py-24 relative">
+        <section id="top" class="hero-bg text-white py-24 relative">
             <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center">
-               
-
                 <div class="lg:w-1/2 text-center lg:text-left" data-aos="fade-right">
-                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Advancing Science Through Computation</h1>
-                    <p class="text-lg md:text-xl mb-8 text-gray-200">We are BSCS students leveraging computational science to solve complex problems in climate, biology, engineering, and more.</p>
-                    <div class="flex justify-center lg:justify-start space-x-4">
-                        <a href="#research-areas" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold glow-btn hover:bg-gray-100 transition">Explore Our Work</a>
-                     
-                    </div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">About the Advanced Computational Science Toolkit</h1>
+                    <p class="text-lg md:text-xl mb-8 text-gray-200">Discover the power of computational science through interactive simulations designed to explore complex scientific phenomena.</p>
+                    <a href="#toolkit" class="bg-white text-blue-600 px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold glow-btn hover:bg-gray-100 transition inline-block">Explore the Toolkit</a>
                 </div>
                 <div class="lg:w-1/2 mt-12 lg:mt-0" data-aos="fade-left">
-                    <img src="ICCLOGO.png" alt="Computational Science Illustration" class="mx-auto w-3/4 lg:w-full animate-pulse">
+                    <i class="fas fa-atom text-7xl sm:text-9xl mx-auto block animate-pulse text-white opacity-75"></i>
+                </div>
+                <div class="floating-element top-10 left-10 text-3xl sm:text-4xl"><i class="fas fa-dna"></i></div>
+                <div class="floating-element bottom-20 right-20 text-4xl sm:text-5xl"><i class="fas fa-cogs"></i></div>
+            </div>
+        </section>
+
+        <!-- What is Computational Science -->
+        <section id="computational-science" class="py-20">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 sm:mb-16 text-gray-800" data-aos="fade-up">What is Computational Science?</h2>
+                <div class="section-card bg-white p-6 sm:p-10 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-blue-600 mb-4">Definition and Scope</h3>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">Computational science is an interdisciplinary field that uses advanced computing techniques to model, simulate, and analyze complex systems across various domains. It integrates mathematics, computer science, and domain-specific knowledge to tackle problems that are infeasible with traditional methods alone.</p>
+                    
+                    <h3 class="text-xl sm:text-2xl font-semibold text-blue-600 mb-4">The Third Pillar of Science</h3>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">Alongside theory and experimentation, computational science is considered the "third pillar" of scientific discovery. It allows researchers to create virtual laboratories, test hypotheses, and visualize results in ways that complement physical experiments and analytical models.</p>
+                    
+                    <h3 class="text-xl sm:text-2xl font-semibold text-blue-600 mb-4">Key Components</h3>
+                    <ul class="list-disc pl-6 text-gray-600 mb-6 text-sm sm:text-base">
+                        <li><strong>Mathematical Modeling:</strong> Developing equations to represent real-world phenomena.</li>
+                        <li><strong>Numerical Methods:</strong> Algorithms to approximate solutions (e.g., finite difference, Monte Carlo).</li>
+                        <li><strong>High-Performance Computing:</strong> Leveraging supercomputers and parallel processing.</li>
+                        <li><strong>Data Visualization:</strong> Transforming raw data into interpretable graphics.</li>
+                    </ul>
+                    
+                    <h3 class="text-xl sm:text-2xl font-semibold text-blue-600 mb-4">Applications Across Disciplines</h3>
+                    <p class="text-gray-600 mb-6 text-sm sm:text-base">From simulating galaxy formation in astrophysics to predicting protein folding in biology, computational science impacts nearly every field. It’s used in climate modeling, drug discovery, engineering design, financial forecasting, and even social simulations.</p>
+                    
+                    <h3 class="text-xl sm:text-2xl font-semibold text-blue-600 mb-4">Why It Matters</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Computational science accelerates discovery by enabling rapid iteration, handling massive datasets, and exploring scenarios that are too costly, dangerous, or time-consuming to study experimentally. It’s pivotal in addressing global challenges like climate change, pandemics, and sustainable energy.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Research Areas -->
-        <section id="research-areas" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800" data-aos="fade-up">Research Areas</h2>
-              
-                <div class="tab-content">
-                    <!-- Climate Modeling -->
-                    <div class="tab-pane fade show active" id="climate" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="CLIMATEMODELING.png" class="w-full rounded-lg" alt="Climate Modeling">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-cloud-sun mr-2 text-blue-600"></i>Climate Modeling</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Climate modeling is a critical application of computational science, enabling us to simulate Earth’s climate systems with unprecedented detail. By solving complex partial differential equations (PDEs), these models predict long-term trends in temperature, precipitation, and sea-level rise.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">We’ve enhanced prediction accuracy by 22% for extreme weather events, such as tropical cyclones and heatwaves, by incorporating machine learning to optimize initial conditions.</p>
-                                <p class="text-gray-600 leading-relaxed">Applications extend to disaster preparedness, agriculture planning, and renewable energy siting. However, challenges remain in computational cost and cloud dynamics.</p>
-                            </div>
+        <!-- Toolkit Applications -->
+        <section id="toolkit" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 sm:mb-16 text-gray-800" data-aos="fade-up">Toolkit Applications</h2>
+                <p class="text-center text-lg text-gray-600 mb-12" data-aos="fade-up" data-aos-delay="100">The Advanced Computational Science Toolkit offers interactive simulations to explore key concepts. Here’s a detailed look at each tool.</p>
+
+                <!-- Population Growth Model -->
+                <div class="section-card bg-white p-6 sm:p-10 rounded-2xl shadow-lg mb-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <div class="sm:w-1/4 text-center mb-6 sm:mb-0">
+                            <i class="fas fa-chart-line text-4xl sm:text-5xl text-blue-600"></i>
                         </div>
-                    </div>
-                    <!-- Bioinformatics -->
-                    <div class="tab-pane fade" id="bioinfo" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="SIMULATIONS.png" class="w-full rounded-lg" alt="Bioinformatics">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-dna mr-2 text-blue-600"></i>Bioinformatics</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Bioinformatics harnesses computational science to analyze biological data, revolutionizing fields like genomics and personalized medicine.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">We’ve developed a pipeline that reduces genomic analysis time by 35%, using GPU-accelerated clustering to identify genetic markers.</p>
-                                <p class="text-gray-600 leading-relaxed">Applications include drug discovery, where we predict protein-drug interactions with 85% accuracy.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Engineering Optimization -->
-                    <div class="tab-pane fade" id="engopt" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="7.png" class="w-full rounded-lg" alt="Engineering Optimization">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-cogs mr-2 text-blue-600"></i>Engineering Optimization</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Engineering optimization uses computational science to design efficient systems, from aircraft to infrastructure.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">A recent CFD simulation reduced drag on an aircraft wing by 20%, running 12,000 iterations on a high-performance cluster.</p>
-                                <p class="text-gray-600 leading-relaxed">Industries like aerospace, automotive, and civil engineering benefit, minimizing costs and environmental impact.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Quantum Computing -->
-                    <div class="tab-pane fade" id="quantum" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="8.png" class="w-full rounded-lg" alt="Quantum Computing">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-atom mr-2 text-blue-600"></i>Quantum Computing</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Quantum computing leverages quantum mechanics—superposition, entanglement, and interference—to solve problems intractable for classical computers.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">We’ve demonstrated a 40% speedup in quantum chemistry calculations, such as simulating hydrogen bonding.</p>
-                                <p class="text-gray-600 leading-relaxed">The field is nascent, with practical applications emerging.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Astrophysics -->
-                    <div class="tab-pane fade" id="astro" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="9.png" class="w-full rounded-lg" alt="Astrophysics">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-star mr-2 text-blue-600"></i>Astrophysics</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Astrophysics uses computational science to model cosmic phenomena, from star formation to galaxy collisions.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Results match telescope observations with 96% accuracy, revealing dark matter distributions.</p>
-                                <p class="text-gray-600 leading-relaxed">Applications inform theories of cosmic structure and black hole dynamics.</p>
-                            </div>
+                        <div class="sm:w-3/4">
+                            <h3 class="text-xl sm:text-2xl font-semibold text-blue-600 mb-4">Population Growth Model</h3>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Purpose:</strong> Simulates population dynamics using exponential and logistic growth models.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>How It Works:</strong> Users input initial population, growth rate, and carrying capacity. The tool solves differential equations numerically to plot growth curves over time, with a tooltip showing precise values.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Mathematical Basis:</strong> Exponential growth (P(t) = P₀e^(rt)) assumes unlimited resources, while logistic growth (P(t) = K / (1 + ((K - P₀)/P₀)e^(-rt))) accounts for a carrying capacity (K).</p>
+                            <p class="text-gray-600 text-sm sm:text-base"><strong>Real-World Relevance:</strong> Used in ecology to manage wildlife, in economics for market analysis, and in epidemiology for early-stage disease modeling.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Methodologies -->
-        <section id="methodologies" class="py-20 parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-white" data-aos="fade-up">Methodologies</h2>
-              
-                <div class="tab-content">
-                    <!-- Simulations -->
-                    <div class="tab-pane fade show active" id="sim" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="SIMULATIONS.png" class="w-full rounded-lg" alt="Simulations">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-laptop-code mr-2 text-blue-600"></i>Simulations</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Simulations are a cornerstone of computational science, enabling virtual experiments that replicate real-world phenomena.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Molecular dynamics (MD) simulations track atomic movements over time, solving Newton’s equations for systems with billions of particles.</p>
-                                <p class="text-gray-600 leading-relaxed">Challenges include computational expense—large simulations demand weeks on supercomputers.</p>
-                            </div>
+                <!-- Disease Spread Simulation -->
+                <div class="section-card bg-white p-6 sm:p-10 rounded-2xl shadow-lg mb-8" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <div class="sm:w-1/4 text-center mb-6 sm:mb-0">
+                            <i class="fas fa-viruses text-4xl sm:text-5xl text-red-600"></i>
+                        </div>
+                        <div class="sm:w-3/4">
+                            <h3 class="text-xl sm:text-2xl font-semibold text-red-600 mb-4">Disease Spread Simulation</h3>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Purpose:</strong> Models infectious disease transmission in a population.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>How It Works:</strong> An agent-based simulation where individuals move randomly. Infection spreads based on proximity and rate, with recovery after a set time. Stats track healthy, infected, and recovered counts.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Mathematical Basis:</strong> Follows the SIR model (Susceptible-Infected-Recovered), implemented stochastically with random interactions.</p>
+                            <p class="text-gray-600 text-sm sm:text-base"><strong>Real-World Relevance:</strong> Critical for epidemiology, informing lockdown policies, vaccine distribution, and hospital capacity planning (e.g., COVID-19 response).</p>
                         </div>
                     </div>
-                    <!-- Data Analysis -->
-                    <div class="tab-pane fade" id="data" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="11.png" class="w-full rounded-lg" alt="Data Analysis">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-chart-line mr-2 text-blue-600"></i>Data Analysis</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Data analysis in computational science processes vast datasets to extract insights.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">A recent project processed 5 petabytes of weather data, identifying trends with 98% accuracy.</p>
-                                <p class="text-gray-600 leading-relaxed">Big data poses challenges: storage, processing speed, and data quality.</p>
-                            </div>
+                </div>
+
+                <!-- Projectile Motion Simulator -->
+                <div class="section-card bg-white p-6 sm:p-10 rounded-2xl shadow-lg mb-8" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <div class="sm:w-1/4 text-center mb-6 sm:mb-0">
+                            <i class="fas fa-bullseye text-4xl sm:text-5xl text-green-600"></i>
+                        </div>
+                        <div class="sm:w-3/4">
+                            <h3 class="text-xl sm:text-2xl font-semibold text-green-600 mb-4">Projectile Motion Simulator</h3>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Purpose:</strong> Animates the trajectory of a projectile under gravity.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>How It Works:</strong> Users set launch angle, velocity, gravity, and mass. The tool calculates and plots the path, displaying range, height, and time.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Mathematical Basis:</strong> Uses kinematic equations: x = v₀cos(θ)t, y = v₀sin(θ)t - ½gt², solved iteratively for animation.</p>
+                            <p class="text-gray-600 text-sm sm:text-base"><strong>Real-World Relevance:</strong> Applied in ballistics, sports (e.g., optimizing throws), and aerospace for trajectory design.</p>
                         </div>
                     </div>
-                    <!-- Machine Learning -->
-                    <div class="tab-pane fade" id="ml" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="12.png" class="w-full rounded-lg" alt="Machine Learning">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-brain mr-2 text-blue-600"></i>Machine Learning</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Machine learning (ML) enhances computational science by automating pattern recognition and prediction.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Our bioinformatics research uses ML to predict protein structures, training models on datasets like PDB.</p>
-                                <p class="text-gray-600 leading-relaxed">ML’s computational demands require GPU clusters, and overfitting remains a risk.</p>
-                            </div>
+                </div>
+
+                <!-- Probability & Random Distribution -->
+                <div class="section-card bg-white p-6 sm:p-10 rounded-2xl shadow-lg mb-8" data-aos="fade-up" data-aos-delay="500">
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <div class="sm:w-1/4 text-center mb-6 sm:mb-0">
+                            <i class="fas fa-dice text-4xl sm:text-5xl text-purple-600"></i>
+                        </div>
+                        <div class="sm:w-3/4">
+                            <h3 class="text-xl sm:text-2xl font-semibold text-purple-600 mb-4">Probability & Random Distribution</h3>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Purpose:</strong> Visualizes random number distributions.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>How It Works:</strong> Generates uniform, normal, or exponential distributions based on sample size and bins, plotting a histogram with stats (mean, std dev, max).</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Mathematical Basis:</strong> Uses random number generation (e.g., Box-Muller for normal) and statistical analysis.</p>
+                            <p class="text-gray-600 text-sm sm:text-base"><strong>Real-World Relevance:</strong> Essential for risk assessment, Monte Carlo simulations, and quality control in industries like finance and manufacturing.</p>
                         </div>
                     </div>
-                    <!-- High-Performance Computing -->
-                    <div class="tab-pane fade" id="hpc" role="tabpanel">
-                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="md:w-1/3">
-                                <img src="13.png" class="w-full rounded-lg" alt="High-Performance Computing">
-                            </div>
-                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
-                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-server mr-2 text-blue-600"></i>High-Performance Computing</h3>
-                                <p class="text-gray-600 mb-4 leading-relaxed">High-performance computing (HPC) powers computational science with supercomputers and clusters.</p>
-                                <p class="text-gray-600 mb-4 leading-relaxed">MPI and OpenMP frameworks manage parallelism, while GPU acceleration boosts performance by 40%.</p>
-                                <p class="text-gray-600 leading-relaxed">Challenges include cost and energy use—HPC systems consume megawatts.</p>
-                            </div>
+                </div>
+
+                <!-- Equation Plotter -->
+                <div class="section-card bg-white p-6 sm:p-10 rounded-2xl shadow-lg mb-8" data-aos="fade-up" data-aos-delay="600">
+                    <div class="flex flex-col sm:flex-row items-center">
+                        <div class="sm:w-1/4 text-center mb-6 sm:mb-0">
+                            <i class="fas fa-function text-4xl sm:text-5xl text-gray-800"></i>
+                        </div>
+                        <div class="sm:w-3/4">
+                            <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Advanced Equation Plotter</h3>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Purpose:</strong> Plots mathematical functions for exploration.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>How It Works:</strong> Supports quadratic (y = ax² + bx + c), sinusoidal (y = a·sin(bx + c) + d), and exponential (y = a·e^(bx) + c) functions, with adjustable parameters.</p>
+                            <p class="text-gray-600 mb-4 text-sm sm:text-base"><strong>Mathematical Basis:</strong> Evaluates functions point-by-point, scaling results for visualization on a 2D grid.</p>
+                            <p class="text-gray-600 text-sm sm:text-base"><strong>Real-World Relevance:</strong> Used in education, engineering (e.g., signal processing), and physics to understand function behavior.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Publications -->
-        <section id="publications" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800" data-aos="fade-up">Publications</h2>
-                <!-- Tabs for Publications -->
-                <ul class="flex flex-wrap justify-center gap-4 mb-12" id="pubTab" role="tablist" data-aos="fade-up" data-aos-delay="100">
-           
-                </ul>
-                <div class="tab-content">
-                    <!-- 2024 Papers -->
-                    <div class="tab-pane fade show active" id="pub2024" role="tabpanel">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                                <h5 class="text-2xl font-bold mb-3 text-gray-800">Quantum Machine Learning in Climate Prediction</h5>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Hybrid quantum-classical models reduced forecast errors by 17%, tested on a 50-qubit system. We discuss scalability and disaster planning applications.</p>
-                                <a href="https://arxiv.org/abs/2307.06271" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                                <h5 class="text-2xl font-bold mb-3 text-gray-800">AI-Driven Structural Design</h5>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Reinforcement learning cut material use by 12% in a bridge design, compared to CFD baselines.</p>
-                                <a href="https://www.sciencedirect.com/science/article/pii/S2352710223001234" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 2023 Papers -->
-                    <div class="tab-pane fade" id="pub2023" role="tabpanel">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                                <h5 class="text-2xl font-bold mb-3 text-gray-800">Distributed Genomic Analysis</h5>
-                                <p class="text-gray-600 mb-4 leading-relaxed">A Spark pipeline processed 2 million genomes in 36 hours, improving marker detection by 22%.</p>
-                                <a href="https://www.nature.com/articles/s41588-023-01356-2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                                <h5 class="text-2xl font-bold mb-3 text-gray-800">High-Resolution GCMs</h5>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Adaptive meshes boosted resolution by 28%, balancing accuracy and cost.</p>
-                                <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003405" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 2022 Papers -->
-                    <div class="tab-pane fade" id="pub2022" role="tabpanel">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                                <h5 class="text-2xl font-bold mb-3 text-gray-800">HPC in Astrophysics</h5>
-                                <p class="text-gray-600 mb-4 leading-relaxed">A 5-billion-particle simulation matched Hubble data with 97% accuracy.</p>
-                                <a href="https://iopscience.iop.org/article/10.3847/1538-4357/ac5b06" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                                <h5 class="text-2xl font-bold mb-3 text-gray-800">ML for Protein Folding</h5>
-                                <p class="text-gray-600 mb-4 leading-relaxed">Deep learning predicted structures 40% faster than MD alone.</p>
-                                <a href="https://www.nature.com/articles/s41586-021-03819-2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800" data-aos="fade-up">Our Group</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <!-- Our Team Section -->
+        <section id="team" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 sm:mb-16 text-gray-800" data-aos="fade-up">Our Team</h2>
+                <p class="text-center text-lg text-gray-600 mb-12" data-aos="fade-up" data-aos-delay="100">Meet the dedicated students behind the Advanced Computational Science Toolkit.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
                         <div class="relative group">
-                            <img src="Arvee.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <img src="Arvee.jpg" class="w-24 sm:w-36 h-24 sm:h-36 rounded-full mx-auto mb-4 object-cover transition-transform group-hover:scale-110" alt="Prince Arvee Avena">
                             <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
                         </div>
-                        <h5 class="text-xl font-bold text-gray-800">Prince Arvee Avena</h5>
-                        <p class="text-gray-600">BSCS-3 Student</p>
+                        <h5 class="text-lg sm:text-xl font-bold text-gray-800">Prince Arvee Avena</h5>
+                        <p class="text-gray-600 text-sm sm:text-base">BSCS-3 Student</p>
                     </div>
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
                         <div class="relative group">
-                            <img src="Chito.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <img src="Chito.jpg" class="w-24 sm:w-36 h-24 sm:h-36 rounded-full mx-auto mb-4 object-cover transition-transform group-hover:scale-110" alt="Chito Afable">
                             <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
                         </div>
-                        <h5 class="text-xl font-bold text-gray-800">Chito Afable</h5>
-                        <p class="text-gray-600">BSCS-3 Student</p>
+                        <h5 class="text-lg sm:text-xl font-bold text-gray-800">Chito Afable</h5>
+                        <p class="text-gray-600 text-sm sm:text-base">BSCS-3 Student</p>
                     </div>
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
                         <div class="relative group">
-                            <img src="janrose.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <img src="janrose.jpg" class="w-24 sm:w-36 h-24 sm:h-36 rounded-full mx-auto mb-4 object-cover transition-transform group-hover:scale-110" alt="Janrose Corpuz">
                             <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
                         </div>
-                        <h5 class="text-xl font-bold text-gray-800">Janrose Corpuz</h5>
-                        <p class="text-gray-600">BSCS-3 Student</p>
+                        <h5 class="text-lg sm:text-xl font-bold text-gray-800">Janrose Corpuz</h5>
+                        <p class="text-gray-600 text-sm sm:text-base">BSCS-3 Student</p>
                     </div>
                     <div class="text-center" data-aos="zoom-in" data-aos-delay="500">
                         <div class="relative group">
-                            <img src="jean.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <img src="jean.jpg" class="w-24 sm:w-36 h-24 sm:h-36 rounded-full mx-auto mb-4 object-cover transition-transform group-hover:scale-110" alt="Jean Caraig">
                             <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
                         </div>
-                        <h5 class="text-xl font-bold text-gray-800">Jean Caraig</h5>
-                        <p class="text-gray-600">BSCS-3 Student</p>
+                        <h5 class="text-lg sm:text-xl font-bold text-gray-800">Jean Caraig</h5>
+                        <p class="text-gray-600 text-sm sm:text-base">BSCS-3 Student</p>
                     </div>
                 </div>
             </div>
@@ -425,49 +358,37 @@
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-2xl font-bold mb-4">Computational Science Research Portal</h3>
-                    <p class="text-gray-400">Advancing scientific discovery through cutting-edge computational methods.</p>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-4">Advanced Computational Science Toolkit</h3>
+                    <p class="text-gray-400 text-sm sm:text-base">Interactive tools for exploring the frontiers of science.</p>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4">Quick Links</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="#research-areas" class="text-gray-400 hover:text-blue-400 transition">Research Areas</a></li>
-                        <li><a href="#methodologies" class="text-gray-400 hover:text-blue-400 transition">Methodologies</a></li>
-                        <li><a href="#publications" class="text-gray-400 hover:text-blue-400 transition">Publications</a></li>
-                        <li><a href="#team" class="text-gray-400 hover:text-blue-400 transition">Our Group</a></li>
+                        <li><a href="#top" class="text-gray-400 hover:text-blue-400 transition text-sm sm:text-base">Home</a></li>
+                        <li><a href="#computational-science" class="text-gray-400 hover:text-blue-400 transition text-sm sm:text-base">What is Computational Science?</a></li>
+                        <li><a href="#toolkit" class="text-gray-400 hover:text-blue-400 transition text-sm sm:text-base">Toolkit Applications</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-blue-400 transition text-sm sm:text-base">Our Team</a></li>
+                        <li><a href="toolkit.html" class="text-gray-400 hover:text-blue-400 transition text-sm sm:text-base">Go to Toolkit</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
-                    <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Immaculate Conception College of Balayan, Inc.</p>
-                    <p class="text-gray-400 mb-2"><i class="fas fa-envelope mr-2"></i>info@iccbalayan.edu</p>
-                    <p class="text-gray-400"><i class="fas fa-phone-alt mr-2"></i>+63 123 456 7890</p>
+                  
+                    
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-6 text-center">
-                <p class="text-gray-400">&copy; 2025 Immaculate Conception College of Balayan, Inc. All rights reserved.</p>
+                <p class="text-gray-400 text-sm sm:text-base">© 2025 Advanced Computational Science Toolkit. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript (Combined) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- JavaScript -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Initialize AOS
         AOS.init({
             duration: 1000,
             once: true
-        });
-
-        // Tab Activation
-        document.querySelectorAll('.tab-btn').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
         });
 
         // Mobile Menu Toggle

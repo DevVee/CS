@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced Computational Science Toolkit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #3a86ff;
+      --secondary-color: #8338ec;
+      --success-color: #38b000;
+      --danger-color: #ff006e;
+      --warning-color: #ffbe0b;
+      --dark-color: #1e293b;
+      --light-color: #f8f9fa;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-bottom: 50px;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease;
+    }
+    
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 250px;
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark-color) 0%, #2a3a5a 100%);
+      padding: 20px;
+      color: white;
+      overflow-y: auto;
+      transition: width 0.3s ease, transform 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar-hidden {
+      transform: translateX(-100%);
+    }
+    
+    .sidebar-toggle {
+      position: fixed;
+      left: 260px;
+      top: 15px;
+      z-index: 1001;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      cursor: pointer;
+      transition: left 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar-toggle.hidden {
+      left: 15px;
+    }
+    
+    .sidebar-toggle:hover {
+      transform: scale(1.1);
+    }
+    
+    .sidebar h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-btn {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      border-radius: 8px;
+      color: #d1d5db;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transform: translateX(5px);
+    }
+    
+    .nav-btn.active {
+      background: var(--primary-color);
+      color: #fff;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-btn.back-btn {
+      background: rgba(255, 255, 255, 0.1);
+      margin-top: 20px;
+    }
+    
+    .nav-btn.back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .header {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .tool-section {
+      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .tool-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .tool-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .tool-icon {
+      font-size: 20px;
+      margin-right: 12px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: white;
+    }
+    
+    canvas {
+      border: 1px solid #e9ecef;
+      margin-top: 15px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 2 / 1;
+    }
+    
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+      align-items: flex-end;
+    }
+    
+    .control-group {
+      flex: 1;
+      min-width: 140px;
+      margin-bottom: 10px;
+    }
+    
+    .btn {
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    input[type="number"], select {
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 6px 10px;
+      width: 100%;
+      font-size: 0.9rem;
+      transition: border-color 0.2s ease;
+    }
+    
+    input[type="number"]:focus, select:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+    }
+    
+    label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+      color: var(--dark-color);
+      font-size: 0.9rem;
+    }
+    
+    .stats-panel {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 500;
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-around;
+    }
+    
+    .stat-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+    
+    .stat-icon {
+      margin-right: 6px;
+      font-size: 12px;
+    }
+    
+    .card-legend {
+      display: flex;
+      justify-content: flex-start;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+    
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+      border-radius: 2px;
+    }
+    
+    .tooltip-custom {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1002;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      body {
+        margin-left: 0;
+        padding-top: 60px;
+      }
+      .sidebar {
+        width: 200px;
+      }
+      .sidebar-hidden {
+        transform: translateX(-100%);
+      }
+      .sidebar-toggle {
+        left: 15px;
+        width: 36px;
+        height: 36px;
+      }
+      .sidebar-toggle.hidden {
+        left: 215px;
+      }
+      .sidebar h2 {
+        font-size: 1.25rem;
+      }
+      .nav-btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+      }
+      .header {
+        padding: 15px 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+      }
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      .header p {
+        font-size: 0.9rem;
+      }
+      .tool-section {
+        padding: 15px;
+      }
+      .controls {
+        flex-direction: column;
+      }
+      .control-group {
+        min-width: 100%;
+      }
+      .tool-header h3 {
+        font-size: 1.25rem;
+      }
+      .stats-panel {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .sidebar {
+        width: 180px;
+      }
+      .sidebar-toggle.hidden {
+        left: 195px;
+      }
+      .sidebar h2 {
+        font-size: 1.1rem;
+      }
+      .nav-btn {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+      }
+      .header h1 {
+        font-size: 1.25rem;
+      }
+      .header p {
+        font-size: 0.8rem;
+      }
+      .tool-section {
+        padding: 12px;
+      }
+      .tool-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+      }
+      .btn {
+        padding: 5px 10px;
+        font-size: 0.85rem;
+      }
+      input[type="number"], select {
+        padding: 5px 8px;
+        font-size: 0.85rem;
+      }
+      label {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <div class="sidebar" id="sidebar">
+    <h2><i class="fas fa-atom"></i> Toolkit</h2>
+    <button class="nav-btn" data-section="popGrowth" onclick="scrollToSection('popGrowth')">
+      <i class="fas fa-chart-line"></i> Population Growth
+    </button>
+    <button class="nav-btn" data-section="diseaseSpread" onclick="scrollToSection('diseaseSpread')">
+      <i class="fas fa-viruses"></i> Disease Spread
+    </button>
+    <button class="nav-btn" data-section="projectileMotion" onclick="scrollToSection('projectileMotion')">
+      <i class="fas fa-bullseye"></i> Projectile Motion
+    </button>
+    <button class="nav-btn" data-section="randomDist" onclick="scrollToSection('randomDist')">
+      <i class="fas fa-dice"></i> Random Distribution
+    </button>
+    <button class="nav-btn" data-section="equationPlot" onclick="scrollToSection('equationPlot')">
+      <i class="fas fa-function"></i> Equation Plotter
+    </button>
+    <a href="index.html" class="nav-btn back-btn">
+      <i class="fas fa-arrow-left"></i> Back to About
+    </a>
+  </div>
+
+  <button class="sidebar-toggle" id="toggleBtn" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="header">
+    <div class="container">
+      <h1 class="text-center mb-2"><i class="fas fa-atom me-2"></i>Advanced Computational Science Toolkit</h1>
+      <p class="text-center mb-0">Interactive simulations for exploring scientific concepts</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Population Growth -->
+    <div class="tool-section" id="popGrowth">
+      <div class="tool-header">
+        <div class="tool-icon" style="background-color: var(--primary-color)">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Population Growth Model</h3>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label for="popInit">Initial Population:</label>
+          <input type="number" id="popInit" value="10" min="1" max="1000" />
+        </div>
+        <div class="control-group">
+          <label for="popRate">Growth Rate (%):</label>
+          <input type="number" id="popRate" value="20" min="1" max="100" />
+        </div>
+        <div class="control-group">
+          <label for="popCap">Carrying Capacity:</label>
+          <input type="number" id="popCap" value="100" min="10" max="1000" />
+        </div>
+        <div class="control-group">
+          <label for="popModel">Model Type:</label>
+          <select id="popModel" class="form-select">
+            <option value="logistic">Logistic Growth</option>
+            <option value="exponential">Exponential Growth</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <button class="btn btn-primary w-100" onclick="runPopulation()">
+            <i class="fas fa-play me-2"></i>Simulate
+          </button>
+        </div>
+      </div>
+      
+      <div>
+        <canvas id="popChart"></canvas>
+        <div class="card-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--primary-color)"></div>
+            <span>Population Size</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--danger-color)"></div>
+            <span>Carrying Capacity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disease Spread -->
+    <div class="tool-section" id="diseaseSpread">
+      <div class="tool-header">
+        <div class="tool-icon" style="background-color: var(--danger-color)">
+          <i class="fas fa-viruses"></i>
+        </div>
+        <h3>Disease Spread Simulation</h3>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label for="diseasePop">Population Size:</label>
+          <input type="number" id="diseasePop" value="100" min="10" max="300" />
+        </div>
+        <div class="control-group">
+          <label for="infectionRate">Infection Rate (%):</label>
+          <input type="number" id="infectionRate" value="3" min="1" max="20" />
+        </div>
+        <div class="control-group">
+          <label for="recoveryTime">Recovery Time:</label>
+          <input type="number" id="recoveryTime" value="500" min="100" max="1000" />
+        </div>
+        <div class="control-group">
+          <button class="btn btn-danger w-100" onclick="startDisease()">
+            <i class="fas fa-play me-2"></i>Start Simulation
+          </button>
+        </div>
+        <div class="control-group">
+          <button class="btn btn-outline-secondary w-100" onclick="pauseDisease()">
+            <i class="fas fa-pause me-2"></i>Pause/Resume
+          </button>
+        </div>
+      </div>
+      
+      <canvas id="diseaseCanvas"></canvas>
+      
+      <div class="stats-panel">
+        <div class="stat-item">
+          <div class="stat-icon text-success"><i class="fas fa-heart"></i></div>
+          <span id="healthyCount">Healthy: 0</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon text-danger"><i class="fas fa-virus"></i></div>
+          <span id="infectedCount">Infected: 0</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon text-secondary"><i class="fas fa-shield-virus"></i></div>
+          <span id="recoveredCount">Recovered: 0</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon text-info"><i class="fas fa-clock"></i></div>
+          <span id="dayCount">Day: 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projectile Motion -->
+    <div class="tool-section" id="projectileMotion">
+      <div class="tool-header">
+        <div class="tool-icon" style="background-color: var(--success-color)">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h3>Projectile Motion Simulator</h3>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label for="projAngle">Launch Angle (°):</label>
+          <input type="number" id="projAngle" value="45" min="0" max="90" />
+        </div>
+        <div class="control-group">
+          <label for="projVel">Initial Velocity (m/s):</label>
+          <input type="number" id="projVel" value="50" min="1" max="100" />
+        </div>
+        <div class="control-group">
+          <label for="projGravity">Gravity (m/s²):</label>
+          <input type="number" id="projGravity" value="9.8" min="1" max="20" step="0.1" />
+        </div>
+        <div class="control-group">
+          <label for="projMass">Object Mass (kg):</label>
+          <input type="number" id="projMass" value="1" min="0.1" max="10" step="0.1" />
+        </div>
+        <div class="control-group">
+          <button class="btn btn-success w-100" onclick="animateProjectile()">
+            <i class="fas fa-play me-2"></i>Simulate
+          </button>
+        </div>
+      </div>
+      
+      <canvas id="projCanvas"></canvas>
+      
+      <div class="stats-panel">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-ruler-horizontal"></i></div>
+          <span id="projRange">Range: 0 m</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-arrows-alt-v"></i></div>
+          <span id="projHeight">Max Height: 0 m</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-stopwatch"></i></div>
+          <span id="projTime">Time: 0 s</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Random Numbers Distribution -->
+    <div class="tool-section" id="randomDist">
+      <div class="tool-header">
+        <div class="tool-icon" style="background-color: var(--secondary-color)">
+          <i class="fas fa-dice"></i>
+        </div>
+        <h3>Probability & Random Distribution</h3>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label for="randCount">Sample Size:</label>
+          <input type="number" id="randCount" value="1000" min="100" max="10000" />
+        </div>
+        <div class="control-group">
+          <label for="randType">Distribution Type:</label>
+          <select id="randType" class="form-select">
+            <option value="uniform">Uniform</option>
+            <option value="normal">Normal (Gaussian)</option>
+            <option value="exponential">Exponential</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="randBins">Number of Bins:</label>
+          <input type="number" id="randBins" value="10" min="5" max="30" />
+        </div>
+        <div class="control-group">
+          <button class="btn btn-secondary w-100" onclick="plotRandom()">
+            <i class="fas fa-play me-2"></i>Generate
+          </button>
+        </div>
+      </div>
+      
+      <canvas id="randCanvas"></canvas>
+      
+      <div class="stats-panel">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-calculator"></i></div>
+          <span id="randMean">Mean: 0</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-arrows-alt-h"></i></div>
+          <span id="randStd">Std Dev: 0</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-sort-amount-up"></i></div>
+          <span id="randMax">Max Value: 0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equation Plotter -->
+    <div class="tool-section" id="equationPlot">
+      <div class="tool-header">
+        <div class="tool-icon" style="background-color: var(--dark-color)">
+          <i class="fas fa-function"></i>
+        </div>
+        <h3>Advanced Equation Plotter</h3>
+      </div>
+      
+      <div class="controls">
+        <div class="control-group">
+          <label for="eqType">Equation Type:</label>
+          <select id="eqType" class="form-select" onchange="updateEquationUI()">
+            <option value="quadratic">Quadratic: y = ax² + bx + c</option>
+            <option value="sine">Sinusoidal: y = a·sin(bx+c) + d</option>
+            <option value="exponential">Exponential: y = a·e^(bx) + c</option>
+          </select>
+        </div>
+        
+        <div id="quadraticControls">
+          <div class="d-flex flex-wrap gap-2">
+            <div class="control-group">
+              <label for="a">a:</label>
+              <input type="number" id="a" value="1" step="0.1" />
+            </div>
+            <div class="control-group">
+              <label for="b">b:</label>
+              <input type="number" id="b" value="0" step="0.1" />
+            </div>
+            <div class="control-group">
+              <label for="c">c:</label>
+              <input type="number" id="c" value="0" step="0.1" />
+            </div>
+          </div>
+        </div>
+        
+        <div id="sineControls" style="display:none">
+          <div class="d-flex flex-wrap gap-2">
+            <div class="control-group">
+              <label for="sineA">Amplitude:</label>
+              <input type="number" id="sineA" value="1" step="0.1" />
+            </div>
+            <div class="control-group">
+              <label for="sineB">Frequency:</label>
+              <input type="number" id="sineB" value="1" step="0.1" />
+            </div>
+            <div class="control-group">
+              <label for="sineC">Phase:</label>
+              <input type="number" id="sineC" value="0" step="0.1" />
+            </div>
+            <div class="control-group">
+              <label for="sineD">Vertical Shift:</label>
+              <input type="number" id="sineD" value="0" step="0.1" />
+            </div>
+          </div>
+        </div>
+        
+        <div id="expControls" style="display:none">
+          <div class="d-flex flex-wrap gap-2">
+            <div class="control-group">
+              <label for="expA">a:</label>
+              <input type="number" id="expA" value="1" step="0.1" />
+            </div>
+            <div class="control-group">
+              <label for="expB">b:</label>
+              <input type="number" id="expB" value="0.1" step="0.01" />
+            </div>
+            <div class="control-group">
+              <label for="expC">c:</label>
+              <input type="number" id="expC" value="0" step="0.1" />
+            </div>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <button class="btn btn-dark w-100" onclick="plotEquation()">
+            <i class="fas fa-play me-2"></i>Plot Graph
+          </button>
+        </div>
+      </div>
+      
+      <canvas id="eqCanvas"></canvas>
+    </div>
+  </div>
+
+  <div class="tooltip-custom" id="customTooltip"></div>
+
+  <script>
+    // Global variables
+    let diseaseAnimationId = null;
+    let diseaseStarted = false;
+    let diseasePaused = false;
+    let dayCounter = 0;
+    let projectileAnimationId = null;
+    let diseasePeople = [];
+
+    // Sidebar toggle functionality
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const toggleBtn = document.getElementById('toggleBtn');
+      const body = document.body;
+      
+      sidebar.classList.toggle('sidebar-hidden');
+      toggleBtn.classList.toggle('hidden');
+      
+      if (window.innerWidth > 768) {
+        body.style.marginLeft = sidebar.classList.contains('sidebar-hidden') ? '0' : '250px';
+      } else {
+        body.style.marginLeft = '0';
+      }
+    }
+
+    // Smooth scroll to section and set active state
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Set active state
+        const navButtons = document.querySelectorAll('.nav-btn');
+        navButtons.forEach(btn => btn.classList.remove('active'));
+        const activeBtn = document.querySelector(`.nav-btn[data-section="${sectionId}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+        
+        if (window.innerWidth <= 768) {
+          toggleSidebar();
+        }
+      }
+    }
+
+    // Update active state on scroll
+    function updateActiveNav() {
+      const sections = document.querySelectorAll('.tool-section');
+      const navButtons = document.querySelectorAll('.nav-btn');
+      let currentSection = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop <= 100 && sectionTop > -section.offsetHeight) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+      
+      navButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-section') === currentSection) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
+    // Utility functions
+    function normalRandom() {
+      let u = 0, v = 0;
+      while(u === 0) u = Math.random();
+      while(v === 0) v = Math.random();
+      return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    }
+    
+    function exponentialRandom(lambda = 1) {
+      return -Math.log(1 - Math.random()) / lambda;
+    }
+    
+    function calculateStats(values) {
+      const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
+      const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
+      const stdDev = Math.sqrt(variance);
+      const max = Math.max(...values);
+      return { mean, stdDev, max };
+    }
+    
+    function drawAxis(ctx, canvasWidth, canvasHeight) {
+      ctx.beginPath();
+      ctx.moveTo(0, canvasHeight / 2);
+      ctx.lineTo(canvasWidth, canvasHeight / 2);
+      ctx.moveTo(canvasWidth / 2, 0);
+      ctx.lineTo(canvasWidth / 2, canvasHeight);
+      ctx.strokeStyle = "#aaa";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.setLineDash([5, 5]);
+      for (let x = 50; x < canvasWidth; x += 50) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvasHeight);
+      }
+      for (let y = 50; y < canvasHeight; y += 50) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvasWidth, y);
+      }
+      ctx.strokeStyle = "#e5e5e5";
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Responsive canvas sizing
+    function resizeCanvases() {
+      const canvases = document.querySelectorAll('canvas');
+      canvases.forEach(canvas => {
+        const width = canvas.parentElement.offsetWidth - 40;
+        canvas.width = width;
+        canvas.height = width / 2;
+      });
+    }
+
+    // Population Growth
+    function runPopulation() {
+      const ctx = document.getElementById("popChart").getContext("2d");
+      const P0 = parseFloat(document.getElementById("popInit").value);
+      const r = parseFloat(document.getElementById("popRate").value) / 100;
+      const K = parseFloat(document.getElementById("popCap").value);
+      const model = document.getElementById("popModel").value;
+      
+      const canvas = document.getElementById("popChart");
+      const width = canvas.width;
+      const height = canvas.height;
+      
+      ctx.clearRect(0, 0, width, height);
+      drawAxis(ctx, width, height);
+      
+      ctx.font = "12px Arial";
+      ctx.fillStyle = "#333";
+      ctx.textAlign = "center";
+      ctx.fillText("Time (days)", width / 2, height - 10);
+      
+      ctx.save();
+      ctx.translate(15, height / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText("Population Size", 0, 0);
+      ctx.restore();
+      
+      const timeScale = width / 100;
+      const maxPop = model === "exponential" ? P0 * Math.exp(r * 100) : K;
+      const popScale = (height - 40) / maxPop;
+      
+      if (model === "logistic") {
+        ctx.beginPath();
+        ctx.moveTo(0, height - (K * popScale));
+        ctx.lineTo(width, height - (K * popScale));
+        ctx.strokeStyle = "rgba(255, 0, 110, 0.5)";
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([5, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        
+        ctx.fillStyle = "rgba(255, 0, 110, 0.8)";
+        ctx.textAlign = "left";
+        ctx.fillText(`K = ${K}`, 10, height - (K * popScale) - 5);
+      }
+      
+      ctx.beginPath();
+      ctx.moveTo(0, height - (P0 * popScale));
+      
+      for (let t = 0; t <= 100; t += 0.5) {
+        let population;
+        if (model === "logistic") {
+          population = K / (1 + ((K - P0) / P0) * Math.exp(-r * t));
+        } else {
+          population = P0 * Math.exp(r * t);
+          if (population > maxPop) population = maxPop;
+        }
+        ctx.lineTo(t * timeScale, height - (population * popScale));
+      }
+      
+      const gradient = ctx.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, "rgba(58, 134, 255, 1)");
+      gradient.addColorStop(1, "rgba(131, 56, 236, 1)");
+      
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(58, 134, 255, 0.1)";
+      ctx.fill();
+      
+      const tooltip = document.getElementById("customTooltip");
+      canvas.onmousemove = function(e) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const t = x / timeScale;
+        
+        if (t >= 0 && t <= 100) {
+          let population;
+          if (model === "logistic") {
+            population = K / (1 + ((K - P0) / P0) * Math.exp(-r * t));
+          } else {
+            population = P0 * Math.exp(r * t);
+          }
+          tooltip.style.opacity = 1;
+          tooltip.style.left = (e.clientX + 10) + "px";
+          tooltip.style.top = (e.clientY - 20) + "px";
+          tooltip.innerHTML = `Time: ${t.toFixed(1)} days<br>Population: ${population.toFixed(1)}`;
+        }
+      };
+      canvas.onmouseout = function() {
+        tooltip.style.opacity = 0;
+      };
+    }
+
+    // Disease Spread
+    function startDisease() {
+      if (diseaseAnimationId) {
+        cancelAnimationFrame(diseaseAnimationId);
+      }
+      
+      diseasePeople = [];
+      diseasePaused = false;
+      diseaseStarted = true;
+      dayCounter = 0;
+      
+      const ctx = document.getElementById("diseaseCanvas").getContext("2d");
+      const canvas = document.getElementById("diseaseCanvas");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const populationSize = parseInt(document.getElementById("diseasePop").value);
+      
+      for (let i = 0; i < populationSize; i++) {
+        diseasePeople.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          dx: (Math.random() - 0.5) * 3,
+          dy: (Math.random() - 0.5) * 3,
+          state: i === 0 ? "infected" : "healthy",
+          time: 0
+        });
+      }
+      
+      updateDisease();
+    }
+    
+    function pauseDisease() {
+      if (!diseaseStarted) return;
+      diseasePaused = !diseasePaused;
+      if (!diseasePaused) {
+        updateDisease();
+      }
+    }
+    
+    function updateDisease() {
+      if (!diseaseStarted || diseasePaused) return;
+      
+      const canvas = document.getElementById("diseaseCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      let healthy = 0, infected = 0, recovered = 0;
+      const infectionRate = parseFloat(document.getElementById("infectionRate").value) / 100;
+      const recoveryTime = parseInt(document.getElementById("recoveryTime").value);
+      
+      if (dayCounter % 25 === 0) {
+        document.getElementById("dayCount").textContent = `Day: ${Math.floor(dayCounter / 25)}`;
+      }
+      dayCounter++;
+      
+      for (let p of diseasePeople) {
+        p.x += p.dx;
+        p.y += p.dy;
+        
+        if (p.x < 10 || p.x > canvas.width - 10) {
+          p.dx *= -1;
+          p.x = p.x < 10 ? 10 : canvas.width - 10;
+        }
+        if (p.y < 10 || p.y > canvas.height - 10) {
+          p.dy *= -1;
+          p.y = p.y < 10 ? 10 : canvas.height - 10;
+        }
+        
+        if (p.state === "infected") {
+          for (let other of diseasePeople) {
+            if (other.state === "healthy") {
+              const dx = p.x - other.x;
+              const dy = p.y - other.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, 20, 0, Math.PI * 2);
+              ctx.fillStyle = "rgba(255, 0, 110, 0.03)";
+              ctx.fill();
+              
+              if (distance < 20 && Math.random() < infectionRate) {
+                other.state = "infected";
+                other.time = 0;
+                
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(other.x, other.y);
+                ctx.strokeStyle = "rgba(255, 0, 110, 0.3)";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+              }
+            }
+          }
+          
+          p.time += 1;
+          if (p.time > recoveryTime) {
+            p.state = "recovered";
+          }
+        }
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = p.state === "healthy" ? "green" : p.state === "infected" ? "red" : "gray";
+        ctx.fill();
+        
+        if (p.state === "healthy") healthy++;
+        else if (p.state === "infected") infected++;
+        else recovered++;
+      }
+      
+      document.getElementById("healthyCount").textContent = `Healthy: ${healthy}`;
+      document.getElementById("infectedCount").textContent = `Infected: ${infected}`;
+      document.getElementById("recoveredCount").textContent = `Recovered: ${recovered}`;
+      
+      diseaseAnimationId = requestAnimationFrame(updateDisease);
+    }
+
+    // Projectile Motion
+    function animateProjectile() {
+      if (projectileAnimationId) {
+        cancelAnimationFrame(projectileAnimationId);
+      }
+      
+      const canvas = document.getElementById("projCanvas");
+      const ctx = canvas.getContext("2d");
+      const angle = parseFloat(document.getElementById("projAngle").value) * Math.PI / 180;
+      const v0 = parseFloat(document.getElementById("projVel").value);
+      const g = parseFloat(document.getElementById("projGravity").value);
+      
+      const v0x = v0 * Math.cos(angle);
+      const v0y = v0 * Math.sin(angle);
+      const tTotal = (2 * v0y) / g;
+      const range = (v0x * tTotal);
+      const maxHeight = (v0y * v0y) / (2 * g);
+      
+      let t = 0;
+      const scaleX = canvas.width / range * 0.9;
+      const scaleY = canvas.height / maxHeight * 0.9;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const x = v0x * t;
+        const y = v0y * t - 0.5 * g * t * t;
+        
+        ctx.beginPath();
+        ctx.arc(x * scaleX + 20, canvas.height - (y * scaleY + 20), 5, 0, Math.PI * 2);
+        ctx.fillStyle = "var(--success-color)";
+        ctx.fill();
+        
+        ctx.beginPath();
+        for (let i = 0; i <= t; i += 0.1) {
+          const px = v0x * i;
+          const py = v0y * i - 0.5 * g * i * i;
+          ctx.lineTo(px * scaleX + 20, canvas.height - (py * scaleY + 20));
+        }
+        ctx.strokeStyle = "var(--success-color)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        t += 0.1;
+        if (t <= tTotal) {
+          projectileAnimationId = requestAnimationFrame(animate);
+        }
+        
+        document.getElementById("projRange").textContent = `Range: ${range.toFixed(2)} m`;
+        document.getElementById("projHeight").textContent = `Max Height: ${maxHeight.toFixed(2)} m`;
+        document.getElementById("projTime").textContent = `Time: ${tTotal.toFixed(2)} s`;
+      }
+      
+      animate();
+    }
+
+    // Random Distribution
+    function plotRandom() {
+      const ctx = document.getElementById("randCanvas").getContext("2d");
+      const sampleSize = parseInt(document.getElementById("randCount").value);
+      const type = document.getElementById("randType").value;
+      const bins = parseInt(document.getElementById("randBins").value);
+      
+      const canvas = document.getElementById("randCanvas");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      let values = [];
+      for (let i = 0; i < sampleSize; i++) {
+        if (type === "uniform") values.push(Math.random());
+        else if (type === "normal") values.push(normalRandom() * 0.1 + 0.5);
+        else values.push(exponentialRandom() * 0.1);
+      }
+      
+      const stats = calculateStats(values);
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const binWidth = (max - min) / bins;
+      
+      let histogram = new Array(bins).fill(0);
+      values.forEach(val => {
+        const bin = Math.min(bins - 1, Math.floor((val - min) / binWidth));
+        histogram[bin]++;
+      });
+      
+      const maxHeight = Math.max(...histogram);
+      const barWidth = canvas.width / bins;
+      const heightScale = (canvas.height - 40) / maxHeight;
+      
+      ctx.beginPath();
+      for (let i = 0; i < bins; i++) {
+        const height = histogram[i] * heightScale;
+        ctx.rect(i * barWidth, canvas.height - height, barWidth - 2, height);
+      }
+      ctx.fillStyle = "var(--secondary-color)";
+      ctx.fill();
+      
+      document.getElementById("randMean").textContent = `Mean: ${stats.mean.toFixed(2)}`;
+      document.getElementById("randStd").textContent = `Std Dev: ${stats.stdDev.toFixed(2)}`;
+      document.getElementById("randMax").textContent = `Max Value: ${stats.max.toFixed(2)}`;
+    }
+
+    // Equation Plotter
+    function updateEquationUI() {
+      const type = document.getElementById("eqType").value;
+      document.getElementById("quadraticControls").style.display = type === "quadratic" ? "block" : "none";
+      document.getElementById("sineControls").style.display = type === "sine" ? "block" : "none";
+      document.getElementById("expControls").style.display = type === "exponential" ? "block" : "none";
+    }
+    
+    function plotEquation() {
+      const ctx = document.getElementById("eqCanvas").getContext("2d");
+      const canvas = document.getElementById("eqCanvas");
+      const type = document.getElementById("eqType").value;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawAxis(ctx, canvas.width, canvas.height);
+      
+      let minY = Infinity, maxY = -Infinity;
+      const points = [];
+      const scaleX = canvas.width / 20;
+      const scaleY = canvas.height / 20;
+      
+      for (let x = -10; x <= 10; x += 0.1) {
+        let y;
+        if (type === "quadratic") {
+          const a = parseFloat(document.getElementById("a").value);
+          const b = parseFloat(document.getElementById("b").value);
+          const c = parseFloat(document.getElementById("c").value);
+          y = a * x * x + b * x + c;
+        } else if (type === "sine") {
+          const a = parseFloat(document.getElementById("sineA").value);
+          const b = parseFloat(document.getElementById("sineB").value);
+          const c = parseFloat(document.getElementById("sineC").value);
+          const d = parseFloat(document.getElementById("sineD").value);
+          y = a * Math.sin(b * x + c) + d;
+        } else {
+          const a = parseFloat(document.getElementById("expA").value);
+          const b = parseFloat(document.getElementById("expB").value);
+          const c = parseFloat(document.getElementById("expC").value);
+          y = a * Math.exp(b * x) + c;
+        }
+        minY = Math.min(minY, y);
+        maxY = Math.max(maxY, y);
+        points.push({ x, y });
+      }
+      
+      ctx.beginPath();
+      ctx.moveTo(points[0].x * scaleX + canvas.width / 2, canvas.height / 2 - points[0].y * scaleY);
+      points.forEach(p => {
+        ctx.lineTo(p.x * scaleX + canvas.width / 2, canvas.height / 2 - p.y * scaleY);
+      });
+      ctx.strokeStyle = "var(--dark-color)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Responsive behavior and initialization
+    window.addEventListener('resize', () => {
+      const sidebar = document.getElementById('sidebar');
+      const body = document.body;
+      
+      resizeCanvases();
+      if (window.innerWidth <= 768 && !sidebar.classList.contains('sidebar-hidden')) {
+        toggleSidebar();
+      } else if (window.innerWidth > 768 && sidebar.classList.contains('sidebar-hidden')) {
+        body.style.marginLeft = '250px';
+      }
+    });
+
+    window.addEventListener('scroll', updateActiveNav);
+
+    window.addEventListener('load', () => {
+      resizeCanvases();
+      if (window.innerWidth <= 768) {
+        toggleSidebar();
+      }
+      updateActiveNav();
+    });
+  </script>
+</body>
+</html>

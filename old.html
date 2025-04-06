@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computational Science Research Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS for Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+        /* Hero Section Gradient */
+        .hero-bg {
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Floating Elements Animation */
+        .floating-element {
+            position: absolute;
+            opacity: 0.9;
+            animation: float 8s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e7eb;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3B82F6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1E3A8A;
+        }
+        /* Hover Effects for Cards */
+        .research-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        /* Glowing Effect for Buttons */
+        .glow-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .glow-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        .glow-btn:hover::before {
+            left: 100%;
+        }
+        /* Parallax Effect for Section Backgrounds */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom Tab Styling */
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #1E3A8A !important;
+            color: white !important;
+        }
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: #3B82F6;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Top Button -->
+    <a href="#home" id="back-to-top" class="hidden">
+        <i class="fas fa-chevron-up text-xl"></i>
+    </a>
+
+    <!-- Top Navbar -->
+    <header class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="ICCLOGO.png" alt="Logo" class="h-12 mr-3">
+                <span class="text-2xl font-bold text-gray-800">Computational Science Research Portal</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium transition">Home</a>
+                <a href="#research-areas" class="text-gray-600 hover:text-blue-600 font-medium transition">Research Areas</a>
+                <a href="#methodologies" class="text-gray-600 hover:text-blue-600 font-medium transition">Methodologies</a>
+                <a href="#publications" class="text-gray-600 hover:text-blue-600 font-medium transition">Publications</a>
+                <a href="#team" class="text-gray-600 hover:text-blue-600 font-medium transition">Our Group</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="flex flex-col items-center py-4 space-y-4">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium">Home</a>
+                <a href="#research-areas" class="text-gray-600 hover:text-blue-600 font-medium">Research Areas</a>
+                <a href="#methodologies" class="text-gray-600 hover:text-blue-600 font-medium">Methodologies</a>
+                <a href="#publications" class="text-gray-600 hover:text-blue-600 font-medium">Publications</a>
+                <a href="#team" class="text-gray-600 hover:text-blue-600 font-medium">Our Group</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content pt-20">
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg text-white py-24 relative">
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center">
+               
+
+                <div class="lg:w-1/2 text-center lg:text-left" data-aos="fade-right">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Advancing Science Through Computation</h1>
+                    <p class="text-lg md:text-xl mb-8 text-gray-200">We are BSCS students leveraging computational science to solve complex problems in climate, biology, engineering, and more.</p>
+                    <div class="flex justify-center lg:justify-start space-x-4">
+                        <a href="#research-areas" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold glow-btn hover:bg-gray-100 transition">Explore Our Work</a>
+                     
+                    </div>
+                </div>
+                <div class="lg:w-1/2 mt-12 lg:mt-0" data-aos="fade-left">
+                    <img src="ICCLOGO.png" alt="Computational Science Illustration" class="mx-auto w-3/4 lg:w-full animate-pulse">
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Areas -->
+        <section id="research-areas" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800" data-aos="fade-up">Research Areas</h2>
+              
+                <div class="tab-content">
+                    <!-- Climate Modeling -->
+                    <div class="tab-pane fade show active" id="climate" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="CLIMATEMODELING.png" class="w-full rounded-lg" alt="Climate Modeling">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-cloud-sun mr-2 text-blue-600"></i>Climate Modeling</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Climate modeling is a critical application of computational science, enabling us to simulate Earth’s climate systems with unprecedented detail. By solving complex partial differential equations (PDEs), these models predict long-term trends in temperature, precipitation, and sea-level rise.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">We’ve enhanced prediction accuracy by 22% for extreme weather events, such as tropical cyclones and heatwaves, by incorporating machine learning to optimize initial conditions.</p>
+                                <p class="text-gray-600 leading-relaxed">Applications extend to disaster preparedness, agriculture planning, and renewable energy siting. However, challenges remain in computational cost and cloud dynamics.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bioinformatics -->
+                    <div class="tab-pane fade" id="bioinfo" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="SIMULATIONS.png" class="w-full rounded-lg" alt="Bioinformatics">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-dna mr-2 text-blue-600"></i>Bioinformatics</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Bioinformatics harnesses computational science to analyze biological data, revolutionizing fields like genomics and personalized medicine.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">We’ve developed a pipeline that reduces genomic analysis time by 35%, using GPU-accelerated clustering to identify genetic markers.</p>
+                                <p class="text-gray-600 leading-relaxed">Applications include drug discovery, where we predict protein-drug interactions with 85% accuracy.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Engineering Optimization -->
+                    <div class="tab-pane fade" id="engopt" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="7.png" class="w-full rounded-lg" alt="Engineering Optimization">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-cogs mr-2 text-blue-600"></i>Engineering Optimization</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Engineering optimization uses computational science to design efficient systems, from aircraft to infrastructure.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">A recent CFD simulation reduced drag on an aircraft wing by 20%, running 12,000 iterations on a high-performance cluster.</p>
+                                <p class="text-gray-600 leading-relaxed">Industries like aerospace, automotive, and civil engineering benefit, minimizing costs and environmental impact.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Quantum Computing -->
+                    <div class="tab-pane fade" id="quantum" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="8.png" class="w-full rounded-lg" alt="Quantum Computing">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-atom mr-2 text-blue-600"></i>Quantum Computing</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Quantum computing leverages quantum mechanics—superposition, entanglement, and interference—to solve problems intractable for classical computers.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">We’ve demonstrated a 40% speedup in quantum chemistry calculations, such as simulating hydrogen bonding.</p>
+                                <p class="text-gray-600 leading-relaxed">The field is nascent, with practical applications emerging.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Astrophysics -->
+                    <div class="tab-pane fade" id="astro" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="9.png" class="w-full rounded-lg" alt="Astrophysics">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-star mr-2 text-blue-600"></i>Astrophysics</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Astrophysics uses computational science to model cosmic phenomena, from star formation to galaxy collisions.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Results match telescope observations with 96% accuracy, revealing dark matter distributions.</p>
+                                <p class="text-gray-600 leading-relaxed">Applications inform theories of cosmic structure and black hole dynamics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodologies -->
+        <section id="methodologies" class="py-20 parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80')">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-white" data-aos="fade-up">Methodologies</h2>
+              
+                <div class="tab-content">
+                    <!-- Simulations -->
+                    <div class="tab-pane fade show active" id="sim" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="SIMULATIONS.png" class="w-full rounded-lg" alt="Simulations">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-laptop-code mr-2 text-blue-600"></i>Simulations</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Simulations are a cornerstone of computational science, enabling virtual experiments that replicate real-world phenomena.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Molecular dynamics (MD) simulations track atomic movements over time, solving Newton’s equations for systems with billions of particles.</p>
+                                <p class="text-gray-600 leading-relaxed">Challenges include computational expense—large simulations demand weeks on supercomputers.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Data Analysis -->
+                    <div class="tab-pane fade" id="data" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="11.png" class="w-full rounded-lg" alt="Data Analysis">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-chart-line mr-2 text-blue-600"></i>Data Analysis</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Data analysis in computational science processes vast datasets to extract insights.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">A recent project processed 5 petabytes of weather data, identifying trends with 98% accuracy.</p>
+                                <p class="text-gray-600 leading-relaxed">Big data poses challenges: storage, processing speed, and data quality.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Machine Learning -->
+                    <div class="tab-pane fade" id="ml" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="12.png" class="w-full rounded-lg" alt="Machine Learning">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-brain mr-2 text-blue-600"></i>Machine Learning</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Machine learning (ML) enhances computational science by automating pattern recognition and prediction.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Our bioinformatics research uses ML to predict protein structures, training models on datasets like PDB.</p>
+                                <p class="text-gray-600 leading-relaxed">ML’s computational demands require GPU clusters, and overfitting remains a risk.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- High-Performance Computing -->
+                    <div class="tab-pane fade" id="hpc" role="tabpanel">
+                        <div class="research-card bg-white p-10 rounded-2xl shadow-lg flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+                            <div class="md:w-1/3">
+                                <img src="13.png" class="w-full rounded-lg" alt="High-Performance Computing">
+                            </div>
+                            <div class="md:w-2/3 md:pl-10 mt-6 md:mt-0">
+                                <h3 class="text-3xl font-bold mb-4"><i class="fas fa-server mr-2 text-blue-600"></i>High-Performance Computing</h3>
+                                <p class="text-gray-600 mb-4 leading-relaxed">High-performance computing (HPC) powers computational science with supercomputers and clusters.</p>
+                                <p class="text-gray-600 mb-4 leading-relaxed">MPI and OpenMP frameworks manage parallelism, while GPU acceleration boosts performance by 40%.</p>
+                                <p class="text-gray-600 leading-relaxed">Challenges include cost and energy use—HPC systems consume megawatts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications -->
+        <section id="publications" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800" data-aos="fade-up">Publications</h2>
+                <!-- Tabs for Publications -->
+                <ul class="flex flex-wrap justify-center gap-4 mb-12" id="pubTab" role="tablist" data-aos="fade-up" data-aos-delay="100">
+           
+                </ul>
+                <div class="tab-content">
+                    <!-- 2024 Papers -->
+                    <div class="tab-pane fade show active" id="pub2024" role="tabpanel">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                                <h5 class="text-2xl font-bold mb-3 text-gray-800">Quantum Machine Learning in Climate Prediction</h5>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Hybrid quantum-classical models reduced forecast errors by 17%, tested on a 50-qubit system. We discuss scalability and disaster planning applications.</p>
+                                <a href="https://arxiv.org/abs/2307.06271" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                                <h5 class="text-2xl font-bold mb-3 text-gray-800">AI-Driven Structural Design</h5>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Reinforcement learning cut material use by 12% in a bridge design, compared to CFD baselines.</p>
+                                <a href="https://www.sciencedirect.com/science/article/pii/S2352710223001234" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2023 Papers -->
+                    <div class="tab-pane fade" id="pub2023" role="tabpanel">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                                <h5 class="text-2xl font-bold mb-3 text-gray-800">Distributed Genomic Analysis</h5>
+                                <p class="text-gray-600 mb-4 leading-relaxed">A Spark pipeline processed 2 million genomes in 36 hours, improving marker detection by 22%.</p>
+                                <a href="https://www.nature.com/articles/s41588-023-01356-2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                                <h5 class="text-2xl font-bold mb-3 text-gray-800">High-Resolution GCMs</h5>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Adaptive meshes boosted resolution by 28%, balancing accuracy and cost.</p>
+                                <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2022MS003405" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2022 Papers -->
+                    <div class="tab-pane fade" id="pub2022" role="tabpanel">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                                <h5 class="text-2xl font-bold mb-3 text-gray-800">HPC in Astrophysics</h5>
+                                <p class="text-gray-600 mb-4 leading-relaxed">A 5-billion-particle simulation matched Hubble data with 97% accuracy.</p>
+                                <a href="https://iopscience.iop.org/article/10.3847/1538-4357/ac5b06" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                            <div class="research-card bg-white p-8 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                                <h5 class="text-2xl font-bold mb-3 text-gray-800">ML for Protein Folding</h5>
+                                <p class="text-gray-600 mb-4 leading-relaxed">Deep learning predicted structures 40% faster than MD alone.</p>
+                                <a href="https://www.nature.com/articles/s41586-021-03819-2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-semibold">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800" data-aos="fade-up">Our Group</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="relative group">
+                            <img src="Arvee.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-800">Prince Arvee Avena</h5>
+                        <p class="text-gray-600">BSCS-3 Student</p>
+                    </div>
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="relative group">
+                            <img src="Chito.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-800">Chito Afable</h5>
+                        <p class="text-gray-600">BSCS-3 Student</p>
+                    </div>
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="relative group">
+                            <img src="janrose.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-800">Janrose Corpuz</h5>
+                        <p class="text-gray-600">BSCS-3 Student</p>
+                    </div>
+                    <div class="text-center" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="relative group">
+                            <img src="jean.jpg" class="w-36 h-36 rounded-full mx-auto mb-4 transition-transform group-hover:scale-110" alt="">
+                            <div class="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        </div>
+                        <h5 class="text-xl font-bold text-gray-800">Jean Caraig</h5>
+                        <p class="text-gray-600">BSCS-3 Student</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Computational Science Research Portal</h3>
+                    <p class="text-gray-400">Advancing scientific discovery through cutting-edge computational methods.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="#research-areas" class="text-gray-400 hover:text-blue-400 transition">Research Areas</a></li>
+                        <li><a href="#methodologies" class="text-gray-400 hover:text-blue-400 transition">Methodologies</a></li>
+                        <li><a href="#publications" class="text-gray-400 hover:text-blue-400 transition">Publications</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-blue-400 transition">Our Group</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt mr-2"></i>Immaculate Conception College of Balayan, Inc.</p>
+                    <p class="text-gray-400 mb-2"><i class="fas fa-envelope mr-2"></i>info@iccbalayan.edu</p>
+                    <p class="text-gray-400"><i class="fas fa-phone-alt mr-2"></i>+63 123 456 7890</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-gray-400">&copy; 2025 Immaculate Conception College of Balayan, Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript (Combined) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Tab Activation
+        document.querySelectorAll('.tab-btn').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Back to Top Button Visibility
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth Scroll for Back to Top
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Add Active Class to Navbar Links on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('header nav a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-600');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('text-blue-600');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
